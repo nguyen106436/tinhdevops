@@ -9,7 +9,8 @@ import {
   LogOut, 
   PackageCheck,
   ChevronDown,
-  LayoutDashboard
+  LayoutDashboard,
+  ShieldCheck
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -115,6 +116,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Liên hệ
+            </button>
+            <button
+              onClick={() => handleNavClick('admin')}
+              className={`px-3.5 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                activeTab === 'admin'
+                  ? 'bg-slate-900 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100/70'
+              }`}
+              title="Truy cập khu vực Quản trị"
+            >
+              <ShieldCheck className="w-4 h-4 text-blue-600" />
+              <span>Quản trị</span>
             </button>
           </nav>
 
@@ -312,22 +325,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             Liên hệ
           </button>
-          {currentUser?.role === 'admin' && (
-            <button
-              onClick={() => handleNavClick('admin')}
-              className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
-                activeTab === 'admin' ? 'bg-slate-900 text-white' : 'text-blue-600 bg-blue-50/60 hover:bg-blue-100/60'
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                <LayoutDashboard className="w-4 h-4 text-blue-600" />
-                <span>Trang Quản trị (Admin)</span>
-              </span>
-              <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-blue-600 text-white">
-                Admin
-              </span>
-            </button>
-          )}
+          <button
+            onClick={() => handleNavClick('admin')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
+              activeTab === 'admin' ? 'bg-slate-900 text-white' : 'text-blue-600 bg-blue-50/60 hover:bg-blue-100/60'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-blue-600" />
+              <span>Trang Quản trị (Admin)</span>
+            </span>
+            <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-blue-600 text-white">
+              Admin
+            </span>
+          </button>
           {isAuthenticated && (
             <button
               onClick={() => {

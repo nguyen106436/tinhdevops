@@ -20,22 +20,57 @@ import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminLogin } from './components/admin/AdminLogin';
 import { useAuth } from './context/AuthContext';
 
+const checkIsAdminRoute = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path === '/admin' ||
+    path.startsWith('/admin/') ||
+    hash === '#admin' ||
+    search.includes('admin')
+  );
+};
+
 const AppContent: React.FC = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState<'products' | 'about' | 'contact' | 'admin'>(() => {
-    if (typeof window !== 'undefined' && (window.location.hash === '#admin' || window.location.search.includes('admin'))) {
-      return 'admin';
-    }
-    return 'products';
+    return checkIsAdminRoute() ? 'admin' : 'products';
   });
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Sync hash with admin tab
+  // Listen for URL changes (back/forward navigation or hash changes)
+  useEffect(() => {
+    const handleUrlChange = () => {
+      if (checkIsAdminRoute()) {
+        setActiveTab('admin');
+      } else {
+        const path = window.location.pathname.toLowerCase();
+        if (path === '/' || path === '') {
+          setActiveTab('products');
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
+
+  // Sync browser URL with admin tab
   useEffect(() => {
     if (activeTab === 'admin') {
-      window.location.hash = 'admin';
-    } else if (window.location.hash === '#admin') {
-      history.replaceState(null, '', window.location.pathname);
+      if (window.location.pathname !== '/admin' && window.location.hash !== '#admin') {
+        window.history.pushState(null, '', '/admin');
+      }
+    } else {
+      if (window.location.pathname === '/admin' || window.location.hash === '#admin') {
+        window.history.pushState(null, '', '/');
+      }
     }
   }, [activeTab]);
 
