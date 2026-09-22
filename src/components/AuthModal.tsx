@@ -22,9 +22,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onAdminLogin }) => {
     e.preventDefault();
     const trimmed = usernameOrEmail.trim().toLowerCase();
     const isAttemptAdmin =
+      trimmed === 'xuantinh' ||
       trimmed === 'admin' ||
-      trimmed === 'admin@vietthangstore.vn' ||
-      trimmed === 'admin@vietthang.vn' ||
+      trimmed === 'xuantinh@xuantinhstore.vn' ||
+      trimmed === 'admin@xuantinhstore.vn' ||
+      trimmed === 'admin@xuantinh.vn' ||
       trimmed === 'quantri';
 
     const success = login(usernameOrEmail, password);
@@ -57,13 +59,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onAdminLogin }) => {
         {/* Modal Top Header */}
         <div className="p-6 pb-2 text-center">
           <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto mb-3 shadow-md shadow-blue-500/25">
-            <span className="font-extrabold text-xl">VT</span>
+            <span className="font-extrabold text-xl">XT</span>
           </div>
           <h2 className="text-xl font-extrabold text-slate-900">
             {authModalTab === 'login' ? 'Đăng Nhập Tài Khoản' : 'Tạo Tài Khoản Mới'}
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Chào mừng bạn đến với hệ thống công nghệ VietThang Store
+            Chào mừng bạn đến với hệ thống thời trang Xuân Tính Fashion
           </p>
         </div>
 

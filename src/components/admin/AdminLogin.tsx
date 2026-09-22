@@ -19,8 +19,8 @@ interface AdminLoginProps {
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onExit }) => {
   const { loginAdmin, loginAdminDemo, currentUser, logout } = useAuth();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('xuantinh');
+  const [password, setPassword] = useState('xuantinh');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -45,8 +45,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onExit }) => {
   };
 
   const handleQuickAdminDemo = () => {
-    setUsername('admin');
-    setPassword('admin123');
+    setUsername('xuantinh');
+    setPassword('xuantinh');
     setErrorMessage('');
     setIsLoading(true);
     setTimeout(() => {
@@ -87,7 +87,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onExit }) => {
             Đăng Nhập Admin
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Yêu cầu tài khoản có quyền Quản trị viên để truy cập trang quản lý VietThang Store
+            Yêu cầu tài khoản có quyền Quản trị viên để truy cập trang quản lý Xuân Tính Store
           </p>
         </div>
 
@@ -130,7 +130,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onExit }) => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="admin hoặc admin@vietthangstore.vn"
+                placeholder="xuantinh hoặc admin"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-xs sm:text-sm"
               />
               <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -186,7 +186,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onExit }) => {
                 <Sparkles className="w-3 h-3 text-amber-400" />
                 Tài khoản mẫu thử nghiệm:
               </span>
-              <span className="text-[10px] text-slate-400 font-mono">admin / admin123</span>
+              <span className="text-[10px] text-slate-400 font-mono">xuantinh / xuantinh</span>
             </div>
             <p className="text-[11px] text-slate-400 mb-2.5">
               Để thuận tiện kiểm thử, bạn có thể bấm nút bên dưới để tự động đăng nhập quyền Admin ngay lập tức.

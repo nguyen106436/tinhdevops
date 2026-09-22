@@ -106,7 +106,7 @@ export const PRODUCTS: Product[] = [
       'Chất liệu': 'Lụa Mango loại 1 mềm mịn mát tay',
       'Chiều dài': 'Dáng midi ngang bắp chân',
       'Lót trong': 'Có lớp lót lụa habutai kín đáo',
-      'Xuất xứ': 'Thiết kế & sản xuất độc quyền VietThang'
+      'Xuất xứ': 'Thiết kế & sản xuất độc quyền Xuân Tính'
     }
   },
   {
@@ -359,7 +359,7 @@ export const PRODUCTS: Product[] = [
 
 export const VOUCHERS = [
   {
-    code: 'VIETTHANG10',
+    code: 'XUANTINH',
     description: 'Giảm ngay 10% trên tổng giá trị đơn hàng',
     discountPercent: 10,
     minSpend: 0,

@@ -51,12 +51,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
 
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-rose-500 flex items-center justify-center text-white font-black text-sm">
-                  VT
+                  XT
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-bold text-sm sm:text-base tracking-tight text-white">
-                      VietThang Admin
+                      Xuân Tính Admin
                     </span>
                   </div>
                 </div>

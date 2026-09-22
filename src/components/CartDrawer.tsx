@@ -154,7 +154,7 @@ export const CartDrawer: React.FC = () => {
                         type="text"
                         value={couponInput}
                         onChange={(e) => setCouponInput(e.target.value)}
-                        placeholder="Mã voucher (VIETTHANG10)"
+                        placeholder="Mã voucher (XUANTINH)"
                         className="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-mono uppercase text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>

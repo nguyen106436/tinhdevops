@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
             Liên Hệ & Hỗ Trợ Khách Hàng
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
-            Đội ngũ tư vấn viên chuyên nghiệp của VietThang Store luôn sẵn sàng phản hồi trong vòng 5 phút
+            Đội ngũ tư vấn viên chuyên nghiệp của Xuân Tính Fashion luôn sẵn sàng phản hồi trong vòng 5 phút
           </p>
         </div>
 
@@ -60,9 +60,9 @@ export const ContactSection: React.FC = () => {
           {/* Contact Details Card */}
           <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
             <div>
-              <h3 className="text-xl font-bold text-white mb-2">VietThang Store Head Office</h3>
+              <h3 className="text-xl font-bold text-white mb-2">Xuân Tính Fashion Head Office</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Hệ thống showroom trải rộng trên các thành phố lớn sẵn sàng đón tiếp quý khách trải nghiệm trực tiếp máy thật.
+                Hệ thống showroom trải rộng trên các thành phố lớn sẵn sàng đón tiếp quý khách trải nghiệm trực tiếp các bộ sưu tập thời trang.
               </p>
             </div>
 
@@ -86,9 +86,9 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-slate-400">Email chăm sóc khách hàng:</p>
-                  <p className="font-bold text-white">hotro@vietthangstore.vn</p>
+                  <p className="font-bold text-white">hotro@xuantinhstore.vn</p>
                   <p className="text-slate-400">Email hợp tác kinh doanh:</p>
-                  <p className="font-bold text-white">b2b@vietthangstore.vn</p>
+                  <p className="font-bold text-white">b2b@xuantinhstore.vn</p>
                 </div>
               </div>
 
@@ -118,7 +118,7 @@ export const ContactSection: React.FC = () => {
 
             <div className="pt-4 border-t border-white/10">
               <p className="text-[11px] text-slate-400">
-                Được vận hành và bảo chứng kỹ thuật bởi đội ngũ chuyên viên VietThang Store
+                Được vận hành và bảo chứng chất lượng bởi đội ngũ chuyên viên Xuân Tính Fashion
               </p>
             </div>
           </div>
@@ -137,7 +137,7 @@ export const ContactSection: React.FC = () => {
                   Gửi yêu cầu thành công!
                 </h4>
                 <p className="text-xs text-emerald-700 max-w-sm mx-auto">
-                  Cảm ơn bạn đã liên hệ với VietThang Store. Chuyên viên của chúng tôi sẽ gọi điện lại cho bạn trong vòng 10 phút.
+                  Cảm ơn bạn đã liên hệ với Xuân Tính Fashion. Chuyên viên của chúng tôi sẽ gọi điện lại cho bạn trong vòng 10 phút.
                 </p>
               </div>
             ) : (

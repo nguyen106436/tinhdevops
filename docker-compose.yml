@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  vietthang-fashion:
+  xuantinh-fashion:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: vietthang-fashion-app
+    container_name: xuantinh-fashion-app
     ports:
       - "3000:3000"
     environment:

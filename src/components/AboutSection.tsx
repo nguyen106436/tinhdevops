@@ -19,7 +19,7 @@ export const AboutSection: React.FC = () => {
             <span>Thương Hiệu Thời Trang Việt Tiên Phong</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Câu Chuyện Thương Hiệu VietThang Fashion
+            Câu Chuyện Thương Hiệu Xuân Tính Fashion
           </h2>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             Khởi nguồn từ tình yêu với chất liệu sợi tự nhiên và mong muốn mang lại những trang phục vừa vặn, thanh lịch với mức giá hợp lý nhất cho mọi vóc dáng người Việt.
@@ -33,7 +33,7 @@ export const AboutSection: React.FC = () => {
               Kiến Tạo Phong Cách • Tự Tin Trong Từng Bước Chân
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Tại <strong>VietThang Fashion</strong>, chúng tôi tin rằng trang phục bạn khoác lên người không chỉ để mặc đẹp mà còn là ngôn ngữ thể hiện cá tính, sự chỉn chu và phong thái tự tin trước mọi ánh nhìn.
+              Tại <strong>Xuân Tính Fashion</strong>, chúng tôi tin rằng trang phục bạn khoác lên người không chỉ để mặc đẹp mà còn là ngôn ngữ thể hiện cá tính, sự chỉn chu và phong thái tự tin trước mọi ánh nhìn.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">
               Từ những chiếc áo thun Cotton Compact 250GSM basic mặc hàng ngày, áo sơ mi chống nhăn công sở, cho đến những chiếc đầm dạ hội lụa quyến rũ — mọi sản phẩm đều được kiểm định độ co giãn, độ bền màu và đường kim mũi chỉ theo tiêu chuẩn may đo xuất khẩu.
@@ -63,7 +63,7 @@ export const AboutSection: React.FC = () => {
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
               <img
                 src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800&auto=format&fit=crop"
-                alt="VietThang Fashion Design Studio"
+                alt="Xuân Tính Fashion Design Studio"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-6 text-white">
@@ -83,7 +83,7 @@ export const AboutSection: React.FC = () => {
               4 Cam Kết Chất Lượng Hàng Đầu
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Trải nghiệm mua sắm an tâm tuyệt đối tại VietThang Fashion
+              Trải nghiệm mua sắm an tâm tuyệt đối tại Xuân Tính Fashion
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <h4 className="font-bold text-base text-slate-900">Bảo Hành Đường May 1 Năm</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Bảo hành đường may, cúc áo và khóa kéo miễn phí trong suốt 12 tháng tại hệ thống cửa hàng VietThang Fashion.
+                Bảo hành đường may, cúc áo và khóa kéo miễn phí trong suốt 12 tháng tại hệ thống cửa hàng Xuân Tính Fashion.
               </p>
             </div>
 

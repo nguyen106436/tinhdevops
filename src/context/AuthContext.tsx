@@ -26,15 +26,17 @@ interface AuthContextType {
   closeHistoryModal: () => void;
 }
 
-const STORAGE_KEY_USER = 'vietthang_auth_user';
-const STORAGE_KEY_ORDERS = 'vietthang_user_orders';
+const STORAGE_KEY_USER = 'xuantinh_auth_user';
+const LEGACY_STORAGE_KEY_USER = 'vietthang_auth_user';
+const STORAGE_KEY_ORDERS = 'xuantinh_user_orders';
+const LEGACY_STORAGE_KEY_ORDERS = 'vietthang_user_orders';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { showToast } = useToast();
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_USER);
+    const saved = localStorage.getItem(STORAGE_KEY_USER) || localStorage.getItem(LEGACY_STORAGE_KEY_USER);
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -46,7 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [orders, setOrders] = useState<Order[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_ORDERS);
+    const saved = localStorage.getItem(STORAGE_KEY_ORDERS) || localStorage.getItem(LEGACY_STORAGE_KEY_ORDERS);
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -83,13 +85,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const trimmed = usernameOrEmail.trim().toLowerCase();
     const isAttemptAdmin =
+      trimmed === 'xuantinh' ||
       trimmed === 'admin' ||
-      trimmed === 'admin@vietthangstore.vn' ||
-      trimmed === 'admin@vietthang.vn' ||
+      trimmed === 'xuantinh@xuantinhstore.vn' ||
+      trimmed === 'admin@xuantinhstore.vn' ||
+      trimmed === 'admin@xuantinh.vn' ||
       trimmed === 'quantri';
 
     if (isAttemptAdmin) {
-      const validAdminPasswords = ['admin', 'admin123', '123456'];
+      const validAdminPasswords = ['xuantinh', 'admin', 'admin123', '123456', 'xuantinh123'];
       if (validAdminPasswords.includes(pass)) {
         return loginAdmin(usernameOrEmail, pass);
       } else {
@@ -105,7 +109,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const emailValue = usernameOrEmail.includes('@')
       ? usernameOrEmail.trim()
-      : `${usernameOrEmail.trim().toLowerCase()}@vietthangstore.vn`;
+      : `${usernameOrEmail.trim().toLowerCase()}@xuantinhstore.vn`;
 
     const user: User = {
       id: 'usr_' + Date.now(),
@@ -129,8 +133,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const u = usernameOrEmail.trim().toLowerCase();
-    const validUsernames = ['admin', 'admin@vietthangstore.vn', 'admin@vietthang.vn', 'quantri'];
-    const validPasswords = ['admin', 'admin123', '123456'];
+    const validUsernames = [
+      'xuantinh',
+      'admin', 
+      'xuantinh@xuantinhstore.vn',
+      'admin@xuantinhstore.vn', 
+      'admin@xuantinh.vn', 
+      'quantri'
+    ];
+    const validPasswords = ['xuantinh', 'admin', 'admin123', '123456', 'xuantinh123'];
 
     if (!validUsernames.includes(u) || !validPasswords.includes(pass)) {
       showToast('Tài khoản hoặc mật khẩu quản trị không chính xác!', 'error');
@@ -138,11 +149,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const adminUser: User = {
-      id: 'usr_admin_vietthang',
-      name: 'Quản Trị Viên (Admin)',
-      email: 'admin@vietthangstore.vn',
+      id: 'usr_admin_xuantinh',
+      name: 'Xuân Tính (Admin)',
+      email: 'xuantinh@xuantinhstore.vn',
       phone: '0988 888 999',
-      address: 'Trụ sở VietThang Fashion, Hà Nội',
+      address: 'Trụ sở Xuân Tính Fashion, Hà Nội',
       role: 'admin',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
     };
@@ -153,14 +164,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const loginAdminDemo = () => {
-    loginAdmin('admin', 'admin123');
+    loginAdmin('xuantinh', 'xuantinh');
   };
 
   const loginDemo = () => {
     const demoUser: User = {
-      id: 'usr_demo_vietthang',
-      name: 'Nguyễn Văn Thắng (Khách hàng)',
-      email: 'demo@vietthangstore.vn',
+      id: 'usr_demo_xuantinh',
+      name: 'Nguyễn Xuân Tính (Khách hàng)',
+      email: 'demo@xuantinhstore.vn',
       phone: '0912 345 678',
       address: 'Tòa nhà Landmark 81, 720A Điện Biên Phủ, TP. Hồ Chí Minh',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',

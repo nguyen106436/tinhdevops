@@ -54,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top announcement bar */}
       <div className="bg-gradient-to-r from-blue-700 via-indigo-600 to-rose-600 text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-        <span>Bộ sưu tập mới 2026: Nhập mã <strong className="bg-white/20 px-1.5 py-0.5 rounded font-mono font-bold text-amber-200">VIETTHANG10</strong> giảm 10%!</span>
+        <span>Bộ sưu tập mới 2026: Nhập mã <strong className="bg-white/20 px-1.5 py-0.5 rounded font-mono font-bold text-amber-200">XUANTINH</strong> giảm 10%!</span>
         <span className="hidden md:inline">| Miễn phí giao hàng đơn từ 500k | Đổi size 30 ngày</span>
       </div>
 
@@ -67,12 +67,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 cursor-pointer group select-none shrink-0"
           >
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
-              <span className="font-black text-xl tracking-tighter">VT</span>
+              <span className="font-black text-xl tracking-tighter">XT</span>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight">
-                  VietThang<span className="text-blue-600">.Fashion</span>
+                  Xuân Tính<span className="text-blue-600">.Fashion</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700 uppercase">
                   Designer

@@ -106,7 +106,7 @@ export const OrderHistoryModal: React.FC = () => {
               </div>
               <h3 className="text-sm font-bold text-slate-800 mb-1">Chưa có đơn hàng nào</h3>
               <p className="text-xs text-slate-500 max-w-xs mx-auto mb-4">
-                Khi bạn đặt mua trang phục tại VietThang Fashion, toàn bộ đơn hàng và kích thước size sẽ hiển thị tại đây.
+                Khi bạn đặt mua trang phục tại Xuân Tính Fashion, toàn bộ đơn hàng và kích thước size sẽ hiển thị tại đây.
               </p>
               <button
                 onClick={closeHistoryModal}

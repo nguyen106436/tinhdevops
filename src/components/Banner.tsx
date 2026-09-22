@@ -32,7 +32,7 @@ export const Banner: React.FC<BannerProps> = ({ onExploreProducts }) => {
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
                 Định Hình Phong Cách Cùng{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-blue-300">
-                  VietThang Fashion
+                  Xuân Tính Fashion
                 </span>
               </h1>
 
@@ -46,11 +46,11 @@ export const Banner: React.FC<BannerProps> = ({ onExploreProducts }) => {
                   <Tag className="w-4 h-4 text-amber-400" />
                   <span>Voucher giảm 10%:</span>
                   <button
-                    onClick={() => applyCoupon('VIETTHANG10')}
+                    onClick={() => applyCoupon('XUANTINH')}
                     className="font-mono font-bold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded-md hover:bg-amber-300 transition-colors uppercase tracking-wider"
                     title="Bấm để nhận ngay"
                   >
-                    VIETTHANG10
+                    XUANTINH
                   </button>
                 </div>
                 <span className="text-xs text-slate-400">Áp dụng cho mọi đơn quần áo hôm nay</span>
@@ -78,7 +78,7 @@ export const Banner: React.FC<BannerProps> = ({ onExploreProducts }) => {
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-800">
                   <img
                     src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop"
-                    alt="VietThang Fashion Lookbook"
+                    alt="Xuân Tính Fashion Lookbook"
                     className="w-full h-full object-cover transform hover:scale-105 transition-duration-500 transition-transform"
                   />
                   <div className="absolute top-3 left-3 bg-rose-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wide shadow-md">

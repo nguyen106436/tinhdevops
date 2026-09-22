@@ -102,7 +102,7 @@ export const CheckoutModal: React.FC = () => {
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
           <div>
             <h2 className="text-lg font-bold text-slate-900">Xác Nhận Đặt Hàng Thời Trang</h2>
-            <p className="text-xs text-slate-500">VietThang Fashion - Cam kết chất vải cao cấp, đổi size 30 ngày</p>
+            <p className="text-xs text-slate-500">Xuân Tính Fashion - Cam kết chất vải cao cấp, đổi size 30 ngày</p>
           </div>
           <button
             onClick={() => setIsCheckoutOpen(false)}
@@ -245,7 +245,7 @@ export const CheckoutModal: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-slate-400 text-[10px]">Chủ tài khoản:</p>
-                          <p className="font-bold text-white uppercase">VIETTHANG FASHION</p>
+                          <p className="font-bold text-white uppercase">XUAN TINH FASHION</p>
                         </div>
                         <div>
                           <p className="text-slate-400 text-[10px]">Số tiền:</p>
@@ -260,7 +260,7 @@ export const CheckoutModal: React.FC = () => {
                       <div className="pt-2 text-center bg-white p-3 rounded-xl">
                         <img
                           src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(
-                            `2|99|0988123456|VIETTHANG FASHION|info@vietthangstore.vn|0|0|${totalAmount}|${generatedOrderCode}|transfer_myqr`
+                            `2|99|0988123456|XUAN TINH FASHION|info@xuantinhstore.vn|0|0|${totalAmount}|${generatedOrderCode}|transfer_myqr`
                           )}`}
                           alt="VietQR Code"
                           className="w-36 h-36 mx-auto rounded-lg"
