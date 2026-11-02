@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { Product, ProductCategory } from '../../types';
 import { CATEGORIES } from '../../data/products';
 import { useProducts } from '../../context/ProductContext';
@@ -74,9 +74,9 @@ export const AdminProductList: React.FC = () => {
 
   const handleFormSubmit = (data: Omit<Product, 'id'>) => {
     if (editingProduct) {
-      updateProduct(editingProduct.id, data);
+      return updateProduct(editingProduct.id, data);
     } else {
-      addProduct(data);
+      return addProduct(data);
     }
   };
 
@@ -381,3 +381,4 @@ export const AdminProductList: React.FC = () => {
     </div>
   );
 };
+

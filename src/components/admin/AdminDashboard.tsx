@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { AdminOverview } from './AdminOverview';
 import { AdminProductList } from './AdminProductList';
 import { AdminOrderList } from './AdminOrderList';
@@ -27,7 +27,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
   const { currentUser, logout } = useAuth();
 
   const handleAddProduct = (data: any) => {
-    addProduct(data);
+    return addProduct(data);
   };
 
   return (
@@ -183,3 +183,4 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit }) => {
     </div>
   );
 };
+

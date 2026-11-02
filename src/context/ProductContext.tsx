@@ -1,163 +1,72 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product } from '../types';
-import { PRODUCTS as INITIAL_PRODUCTS } from '../data/products';
+import { PRODUCTS } from '../data/products';
 import { useToast } from './ToastContext';
 
+async function request<T>(path = '', method = 'GET', data?: unknown): Promise<T> {
+  const response = await fetch(`/api/products${path}`, {
+    method, headers: { 'Content-Type': 'application/json' },
+    body: data === undefined ? undefined : JSON.stringify(data),
+  });
+  const result = await response.json().catch(() => ({ message: 'Backend chưa sẵn sàng. Hãy chạy npm run server.' }));
+  if (!response.ok) throw new Error(result.message || 'Không lưu được sản phẩm.');
+  return result;
+}
 interface ProductContextType {
   products: Product[];
-  addProduct: (data: Omit<Product, 'id'>) => Product;
-  updateProduct: (id: string, updates: Partial<Product>) => void;
-  deleteProduct: (id: string) => void;
-  toggleStock: (id: string) => void;
-  toggleFeatured: (id: string) => void;
-  resetToDefault: () => void;
-  importProducts: (newProducts: Product[]) => boolean;
+  addProduct: (data: Omit<Product, 'id'>) => Promise<boolean>;
+  updateProduct: (id: string, updates: Partial<Product>) => Promise<boolean>;
+  deleteProduct: (id: string) => Promise<boolean>;
+  toggleStock: (id: string) => Promise<boolean>;
+  toggleFeatured: (id: string) => Promise<boolean>;
+  resetToDefault: () => Promise<boolean>;
+  importProducts: (products: Product[]) => Promise<boolean>;
   getProductById: (id: string) => Product | undefined;
 }
-
-const STORAGE_KEY_PRODUCTS = 'xuantinh_products_data';
-const LEGACY_STORAGE_KEY_PRODUCTS = 'vietthang_products_data';
-
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
-
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [products, setProducts] = useState<Product[]>([]);
   const { showToast } = useToast();
-
-  const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_PRODUCTS) || localStorage.getItem(LEGACY_STORAGE_KEY_PRODUCTS);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      } catch (err) {
-        console.error('Lỗi khi đọc dữ liệu sản phẩm từ localStorage:', err);
-      }
-    }
-    return INITIAL_PRODUCTS;
-  });
-
-  // Sync to localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-    } catch (err) {
-      console.error('Lỗi khi lưu sản phẩm vào localStorage:', err);
-    }
-  }, [products]);
-
-  const addProduct = (data: Omit<Product, 'id'>): Product => {
-    const newId = `prod-${Date.now()}`;
-    const newProduct: Product = {
-      ...data,
-      id: newId,
-      rating: data.rating || 5.0,
-      reviewsCount: data.reviewsCount || 0,
-    };
-
-    setProducts((prev) => [newProduct, ...prev]);
-    showToast(`Đã thêm sản phẩm "${newProduct.name}" thành công!`, 'success');
-    return newProduct;
+    let active = true;
+    request<Product[]>().then(data => { if (active) setProducts(data); }).catch(error => {
+      if (active) showToast(error.message || 'Không tải được sản phẩm từ database.', 'error');
+    });
+    return () => { active = false; };
+  }, []);
+  const save = async (action: () => Promise<void>): Promise<boolean> => {
+    try { await action(); showToast('Đã lưu sản phẩm vào SQL Server.', 'success'); return true; }
+    catch (error) { showToast(error instanceof Error ? error.message : 'Không lưu được sản phẩm.', 'error'); return false; }
   };
-
-  const updateProduct = (id: string, updates: Partial<Product>) => {
-    setProducts((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          return { ...item, ...updates };
-        }
-        return item;
-      })
-    );
-    showToast('Đã cập nhật thông tin sản phẩm!', 'success');
+  const addProduct = (data: Omit<Product, 'id'>) => save(async () => {
+    const product = await request<Product>('', 'POST', data);
+    setProducts(previous => [product, ...previous]);
+  });
+  const updateProduct = (id: string, updates: Partial<Product>) => save(async () => {
+    const product = await request<Product>(`/${encodeURIComponent(id)}`, 'PATCH', updates);
+    setProducts(previous => previous.map(p => p.id === id ? product : p));
+  });
+  const deleteProduct = (id: string) => save(async () => {
+    await request(`/${encodeURIComponent(id)}`, 'DELETE');
+    setProducts(previous => previous.filter(p => p.id !== id));
+  });
+  const importProducts = (data: Product[]) => save(async () => {
+    const result = await request<Product[]>('', 'PUT', data);
+    setProducts(result);
+  });
+  const toggleStock = async (id: string) => {
+    const p = products.find(p => p.id === id);
+    return p ? updateProduct(id, { inStock: !p.inStock, stockCount: p.inStock ? 0 : Math.max(10, p.stockCount) }) : false;
   };
-
-  const deleteProduct = (id: string) => {
-    const target = products.find((p) => p.id === id);
-    setProducts((prev) => prev.filter((item) => item.id !== id));
-    showToast(`Đã xóa sản phẩm "${target ? target.name : id}"`, 'info');
+  const toggleFeatured = async (id: string) => {
+    const p = products.find(p => p.id === id);
+    return p ? updateProduct(id, { isFeatured: !p.isFeatured }) : false;
   };
-
-  const toggleStock = (id: string) => {
-    setProducts((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const newInStock = !item.inStock;
-          showToast(
-            `Đã chuyển trạng thái: ${item.name} (${newInStock ? 'Còn hàng' : 'Hết hàng'})`,
-            newInStock ? 'success' : 'warning'
-          );
-          return {
-            ...item,
-            inStock: newInStock,
-            stockCount: newInStock ? (item.stockCount > 0 ? item.stockCount : 10) : 0,
-          };
-        }
-        return item;
-      })
-    );
-  };
-
-  const toggleFeatured = (id: string) => {
-    setProducts((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const nextVal = !item.isFeatured;
-          showToast(
-            nextVal ? `Đã gắn nổi bật cho "${item.name}"` : `Đã bỏ nổi bật "${item.name}"`,
-            'info'
-          );
-          return { ...item, isFeatured: nextVal };
-        }
-        return item;
-      })
-    );
-  };
-
-  const resetToDefault = () => {
-    setProducts(INITIAL_PRODUCTS);
-    localStorage.removeItem(STORAGE_KEY_PRODUCTS);
-    showToast('Đã khôi phục toàn bộ danh sách sản phẩm về mặc định!', 'info');
-  };
-
-  const importProducts = (newProducts: Product[]): boolean => {
-    if (!Array.isArray(newProducts) || newProducts.length === 0) {
-      showToast('Dữ liệu nhập vào không hợp lệ!', 'error');
-      return false;
-    }
-    setProducts(newProducts);
-    showToast(`Đã nạp thành công ${newProducts.length} sản phẩm!`, 'success');
-    return true;
-  };
-
-  const getProductById = (id: string) => {
-    return products.find((p) => p.id === id);
-  };
-
-  return (
-    <ProductContext.Provider
-      value={{
-        products,
-        addProduct,
-        updateProduct,
-        deleteProduct,
-        toggleStock,
-        toggleFeatured,
-        resetToDefault,
-        importProducts,
-        getProductById,
-      }}
-    >
-      {children}
-    </ProductContext.Provider>
-  );
+  return <ProductContext.Provider value={{ products, addProduct, updateProduct, deleteProduct, toggleStock, toggleFeatured,
+    resetToDefault: () => importProducts(PRODUCTS), importProducts, getProductById: id => products.find(p => p.id === id) }}>{children}</ProductContext.Provider>;
 };
-
 export const useProducts = () => {
   const context = useContext(ProductContext);
-  if (!context) {
-    throw new Error('useProducts must be used within a ProductProvider');
-  }
+  if (!context) throw new Error('useProducts must be used within a ProductProvider');
   return context;
 };

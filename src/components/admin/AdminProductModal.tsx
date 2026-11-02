@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Product, ProductCategory } from '../../types';
 import { CATEGORIES } from '../../data/products';
 import { X, Sparkles, Image as ImageIcon, Plus, Trash2, Check } from 'lucide-react';
@@ -6,7 +6,7 @@ import { X, Sparkles, Image as ImageIcon, Plus, Trash2, Check } from 'lucide-rea
 interface AdminProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: Omit<Product, 'id'>) => void;
+  onSubmit: (data: Omit<Product, 'id'>) => Promise<boolean>;
   initialProduct?: Product | null;
 }
 
@@ -64,6 +64,7 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
   initialProduct,
 }) => {
   const isEditing = !!initialProduct;
+  const [isSaving, setIsSaving] = useState(false);
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState<ProductCategory>('men');
@@ -161,8 +162,9 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
     setHighlights(highlights.filter((_, i) => i !== idx));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSaving) return;
     const newErrors: { [key: string]: string } = {};
 
     if (!name.trim()) {
@@ -209,8 +211,9 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
       },
     };
 
-    onSubmit(productPayload);
-    onClose();
+    setIsSaving(true);
+    try { if (await onSubmit(productPayload)) onClose(); }
+    finally { setIsSaving(false); }
   };
 
   return (
@@ -227,7 +230,7 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
                 {isEditing ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}
               </h3>
               <p className="text-xs text-slate-500">
-                {isEditing ? `Mã: ${initialProduct.id}` : 'Điền thông tin và lưu vào kho hàng offline'}
+                {isEditing ? `Mã: ${initialProduct.id}` : 'Điền thông tin và lưu vào SQL Server'}
               </p>
             </div>
           </div>
@@ -484,6 +487,7 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
+    if (isSaving) return;
                       handleAddHighlight();
                     }
                   }}
@@ -529,7 +533,7 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
               Hủy bỏ
             </button>
             <button
-              type="submit"
+              type="submit" disabled={isSaving}
               className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               {isEditing ? 'Lưu cập nhật' : 'Thêm sản phẩm'}
@@ -540,3 +544,5 @@ export const AdminProductModal: React.FC<AdminProductModalProps> = ({
     </div>
   );
 };
+
+
